@@ -13,6 +13,17 @@ const app = express();
 
 const PORT = process.env.PORT || 3030;
 
+const buildPath = path.join(process.cwd(), 'public');   // <— changed
+app.use(express.static(buildPath));
+app.get('*', (_, res) => {
+    res.sendFile(path.join(buildPath, 'index.html'));
+});
+
+
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 const corsOptions = {
     origin: [
@@ -25,12 +36,8 @@ const corsOptions = {
 }
 app.use(cors(corsOptions))
 
-app.use(express.json({ limit: '100mb' }));
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 
 app.all('*', setupAsyncLocalStorage)
-
 app.use('/api/board', boardRouter)
 app.use('/api/user', userRouter)
 app.use('/api/auth', authRouter)
@@ -40,9 +47,6 @@ app.get('/**', (_, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
 
-const buildPath = path.join(process.cwd(), 'client', 'build');
-app.use(express.static(buildPath))
-app.get('*', (_, res) => res.sendFile(path.join(buildPath, 'index.html')));
 
 
 const server = app.listen(PORT, () => {
