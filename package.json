@@ -4,6 +4,8 @@
   "description": "Backend for DoneDay",
   "type": "module",
   "scripts": {
+    "build": "npm run build:client",
+    "build:client": "cd client && npm ci && npm run build",
     "start": "node server.js",
     "dev": "set GUEST_MODE=true & nodemon server.js",
     "start-build": "cd ./doneday-frontend && npm ci && npm run build && cd .. && npm run server:prod",

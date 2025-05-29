@@ -13,7 +13,6 @@ const app = express();
 
 const PORT = process.env.PORT || 3030;
 
-app.use(express.static('public'))
 
 const corsOptions = {
     origin: [
@@ -40,6 +39,10 @@ app.use('/api/auth', authRouter)
 app.get('/**', (_, res) => {
     res.sendFile(path.resolve('public/index.html'))
 })
+
+const buildPath = path.join(process.cwd(), 'client', 'build');
+app.use(express.static(buildPath))
+app.get('*', (_, res) => res.sendFile(path.join(buildPath, 'index.html')));
 
 
 const server = app.listen(PORT, () => {
