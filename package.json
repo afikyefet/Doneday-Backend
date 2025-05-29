@@ -8,7 +8,7 @@
     "build:client": "cd client && npm ci && npm run build",
     "start": "node server.js",
     "dev": "set GUEST_MODE=true & nodemon server.js",
-    "start-build": "cd ./doneday-frontend && npm ci && npm run build && cd .. && npm run server:prod",
+    "start-build": "cd ./client && npm ci && npm run build && cd .. && npm run server:prod",
     "server:prod": "set NODE_ENV=production&node server.js",
     "server:prod:mac": "export NODE_ENV=production && node server.js"
   },
