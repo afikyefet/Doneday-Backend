@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:client",
     "build:client": "cd client && npm ci && npm run build:client-only",
-    "build:client-only": "vite build"
+    "build:client-only": "vite build",
     "start": "node server.js",
     "dev": "set GUEST_MODE=true & nodemon server.js",
     "start-build": "cd ./client && npm ci && npm run build && cd .. && npm run server:prod",
